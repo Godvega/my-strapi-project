@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "detalle_matriculas",
+  "info": {
+    "singularName": "detalle-matricula",
+    "pluralName": "detalle-matriculas",
+    "displayName": "DetalleMatricula"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "matriculas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::matricula.matricula",
+      "mappedBy": "detalle_matricula"
+    },
+    "Estado": {
+      "type": "boolean"
+    },
+    "asignaturas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asignatura.asignatura",
+      "mappedBy": "detalle_matricula"
+    }
+  }
+}

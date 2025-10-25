@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "asignaturas",
+  "info": {
+    "singularName": "asignatura",
+    "pluralName": "asignaturas",
+    "displayName": "Asignatura"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "text"
+    },
+    "Credito": {
+      "type": "integer"
+    },
+    "Semestre": {
+      "type": "integer"
+    },
+    "detalle_matricula": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::detalle-matricula.detalle-matricula",
+      "inversedBy": "asignaturas"
+    }
+  }
+}

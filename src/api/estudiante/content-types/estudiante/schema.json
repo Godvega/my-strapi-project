@@ -12,13 +12,19 @@
   "pluginOptions": {},
   "attributes": {
     "Nombre": {
-      "type": "string"
+      "type": "text"
     },
     "Apellido": {
-      "type": "string"
+      "type": "text"
     },
     "Edad": {
       "type": "integer"
+    },
+    "matricula": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::matricula.matricula",
+      "inversedBy": "estudiantes"
     }
   }
 }

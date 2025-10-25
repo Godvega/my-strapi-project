@@ -430,6 +430,77 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAsignaturaAsignatura extends Struct.CollectionTypeSchema {
+  collectionName: 'asignaturas';
+  info: {
+    displayName: 'Asignatura';
+    pluralName: 'asignaturas';
+    singularName: 'asignatura';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Credito: Schema.Attribute.Integer;
+    detalle_matricula: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::detalle-matricula.detalle-matricula'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::asignatura.asignatura'
+    > &
+      Schema.Attribute.Private;
+    Nombre: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    Semestre: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiDetalleMatriculaDetalleMatricula
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'detalle_matriculas';
+  info: {
+    displayName: 'DetalleMatricula';
+    pluralName: 'detalle-matriculas';
+    singularName: 'detalle-matricula';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    asignaturas: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::asignatura.asignatura'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Estado: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::detalle-matricula.detalle-matricula'
+    > &
+      Schema.Attribute.Private;
+    matriculas: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::matricula.matricula'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEstudianteEstudiante extends Struct.CollectionTypeSchema {
   collectionName: 'estudiantes';
   info: {
@@ -441,7 +512,7 @@ export interface ApiEstudianteEstudiante extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Apellido: Schema.Attribute.String;
+    Apellido: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -452,7 +523,48 @@ export interface ApiEstudianteEstudiante extends Struct.CollectionTypeSchema {
       'api::estudiante.estudiante'
     > &
       Schema.Attribute.Private;
-    Nombre: Schema.Attribute.String;
+    matricula: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::matricula.matricula'
+    >;
+    Nombre: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMatriculaMatricula extends Struct.CollectionTypeSchema {
+  collectionName: 'matriculas';
+  info: {
+    displayName: 'Matricula';
+    pluralName: 'matriculas';
+    singularName: 'matricula';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    detalle_matricula: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::detalle-matricula.detalle-matricula'
+    >;
+    Estado: Schema.Attribute.Boolean;
+    estudiantes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::estudiante.estudiante'
+    >;
+    Fecha: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::matricula.matricula'
+    > &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -970,7 +1082,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::asignatura.asignatura': ApiAsignaturaAsignatura;
+      'api::detalle-matricula.detalle-matricula': ApiDetalleMatriculaDetalleMatricula;
       'api::estudiante.estudiante': ApiEstudianteEstudiante;
+      'api::matricula.matricula': ApiMatriculaMatricula;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
